@@ -16,7 +16,7 @@ public class Task implements Callable<String>
         System.out.println(
                 "Current Thread Name: "
                         + Thread.currentThread().getName() + " - Current time: " + LocalDateTime.now());
-//        Thread.sleep(1000);
+        Thread.sleep(1000);
         return "Task [" + name + "] executed on : " + LocalDateTime.now().toString();
     }
 }
