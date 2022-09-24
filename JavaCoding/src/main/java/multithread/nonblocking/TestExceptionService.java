@@ -3,8 +3,8 @@ package multithread.nonblocking;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
-public class TestException {
-    public void test() {
+public class TestExceptionService {
+    public void handleException() {
         Integer age = -1;
 
         CompletableFuture<Void> maturityFuture = CompletableFuture.runAsync(() -> {
@@ -24,23 +24,25 @@ public class TestException {
                 System.out.println("Child");
             }
         }).thenRun(() -> {
+            // Only run without exception
             System.out.println("Running 1...");
         }).exceptionally(ex -> {
-            System.out.println("Oops! We have an exception - " + ex.getMessage());
+            System.out.println("Oops! We have an exception: " + ex.getMessage());
             //            return "Unknown!";
             System.out.println("Unknown");
             return null;
         }).thenRun(() -> {
+            // Always run this block after the exception is thrown
             System.out.println("Running 2...");
         });
 
-        //        try {
-        //            System.out.println("Maturity : " + maturityFuture.get());
-        //        } catch (InterruptedException e) {
-        //            throw new RuntimeException(e);
-        //        } catch (ExecutionException e) {
-        //            throw new RuntimeException(e);
-        //        }
+//        try {
+//            System.out.println("Maturity : " + maturityFuture.get());
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        } catch (ExecutionException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     public CompletableFuture<Void> executeActionAsync() {
@@ -70,13 +72,13 @@ public class TestException {
                 throw new RuntimeException(e);
             }
             System.out.println("executing my custom action here..." + Thread.currentThread().getName() + "...");
-//            if (age < 0) {
-//                throw new IllegalArgumentException("Age can not be negative");
-//            }
+            if (age < 0) {
+                throw new IllegalArgumentException("Age can not be negative");
+            }
         });
     }
 
-    public CompletableFuture<Void> executeActionAsyncInMain() {
+    public CompletableFuture<Void> executeActionAsyncUsingJoin() {
         CompletableFuture<Void> f = executeMycustomActionHere();
         for (int i = 0; i < 2; i++) {
             f = f.exceptionally(t -> executeMycustomActionHere().join());
@@ -84,7 +86,7 @@ public class TestException {
         return f;
     }
 
-    public void executeActionAsync3() {
+    public void executeActionAsync2() {
         System.out.println(Thread.currentThread().getName() + " is executing");
         CompletableFuture<Void> f = executeMycustomActionHere();
         for (int i = 0; i < 2; i++) {
@@ -103,6 +105,7 @@ public class TestException {
                     .exceptionally(t -> {
                         System.out.println("Exception: " + t.getMessage());
                         System.out.println("Index: " + finalI + "...");
+                        // Have to check
                         if (finalI == 1) {
                             return null;
                         }
@@ -112,30 +115,5 @@ public class TestException {
         }
     }
 
-    public CompletableFuture<Void> executeActionAsync4() {
-        CompletableFuture<Void> f=executeMycustomActionHere();
-        for(int i=0; i<3; i++) {
-            int finalI = i;
-            System.out.println(f.isDone());
-            f = f.thenApply((value) -> {
-                        System.out.println("Run the fist logic here..." + String.valueOf(finalI) + " - " + System.currentTimeMillis());
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                        return CompletableFuture.completedFuture(value);
-                    })
-                    .exceptionally(t -> {
-                        System.out.println("Exception: " + t.getMessage());
-                        System.out.println("Index: " + finalI + "...");
-                        if (finalI == 2) {
-                            return null;
-                        }
-                        return executeMycustomActionHere();
-                    })
-                    .thenCompose(Function.identity());
-        }
-        return f;
-    }
+
 }

@@ -4,7 +4,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-public class TestCompletableFutureWithoutBlock2 {
+public class TestCompletableFutureThenApply {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         System.out.println(
                 "Current Thread Name: "
@@ -25,6 +25,9 @@ public class TestCompletableFutureWithoutBlock2 {
         });
 
         // Block and get the result of the future.
-//        System.out.println(greetingFuture.get()); // Hello Rajeev
+        System.out.println(greetingFuture.get()); // Hello Rajeev
+
+//        Current Thread Name: main
+//        Hello Rajeev
     }
 }
