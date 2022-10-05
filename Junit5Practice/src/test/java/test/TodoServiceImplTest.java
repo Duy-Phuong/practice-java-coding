@@ -45,7 +45,6 @@ public class TodoServiceImplTest {
     @Test
     public void testRetrieveTodosRelatedToSpring_usingMock()
     {
-        todoBusiness = new TodoServiceImpl(todoServiceMock);
         List<String> todos
                 = Arrays.asList("Learn Spring", "Lear Java",
                 "Learn Spring Boot");
