@@ -17,4 +17,9 @@ class Person {
 
         return String.format("%s %s %s", firstName, middleName, lastName);
     }
+
+    public static String getFirstName() {
+        // TODO Auto-generated method stub
+        return "John";
+    }
 }
