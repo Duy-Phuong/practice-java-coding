@@ -24,19 +24,17 @@ public class FlatMapExample {
 
         System.out.println(listOfAllChars);
 
-        Map<String, Integer> nameMap = new HashMap<>();
-        Integer value = nameMap.computeIfAbsent("John", s -> s.length());
-        System.out.println(nameMap);
-        System.out.println(value);
+        System.out.println("--------------- Optional -----------------");
+        System.out.println(Optional
+                .of("string")
+                .flatMap(s -> Optional.of("STRING")));
 
-        Map<String, Integer> salaries = new HashMap<>();
-        salaries.put("John", 40000);
-        salaries.put("Freddy", 30000);
-        salaries.put("Samuel", 50000);
 
-        salaries.replaceAll((name, oldValue) ->
-                name.equals("Freddy") ? oldValue : oldValue + 10000);
 
-        System.out.println(salaries);
+//        [[a], [b]]
+//        [a, before_each]
+//        [a, b, c, d, e, f, g, h]
+//        {John=4}
+//        4
     }
 }
