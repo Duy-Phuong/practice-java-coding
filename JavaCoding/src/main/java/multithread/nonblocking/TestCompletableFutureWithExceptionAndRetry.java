@@ -4,15 +4,20 @@ import java.time.Duration;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 
+import org.mockito.internal.verification.Only;
+
 public class TestCompletableFutureWithExceptionAndRetry {
     private static final Duration WAIT_BETWEEN = Duration.ofMillis(20);
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         TestExceptionService exception = new TestExceptionService();
 
-//        Uncomment each line to see the result
+//        Uncomment each line to see the result:
 
+//        ======== Test Case 1 ========
 //        exception.handleException();
+
+//        - OUTPUT:
 //        Oops! We have an exception: java.lang.IllegalArgumentException: Age can not be negative
 //                Unknown
 //        Running 2...
@@ -20,9 +25,11 @@ public class TestCompletableFutureWithExceptionAndRetry {
 
 //        Uncomment exception in executeMycustomActionHere to see the difference
 
-//        Run 3 time
-        exception.executeActionAsync();
+//        ======== Test Case 2 ========
+//        Run 3 times => need to fix since we only need to run 2 times
+//        exception.executeActionAsync();
 
+//        - OUTPUT:
 //        main is executing
 //        Retry 0...
 //        Retry 1...
@@ -35,13 +42,28 @@ public class TestCompletableFutureWithExceptionAndRetry {
 //        executing my custom action here...ForkJoinPool.commonPool-worker-2...
 //        Finished
 
-        // Only run 2 times since we add if in the exceptionally
+//        ======== Test Case 3 ========
+//        Trick: Only run 2 times since we add if in the exceptionally to exit the execution in the third time
 //        exception.executeActionAsync2();
 
-//        Run 3 times
-//        exception.executeActionAsyncUsingJoin();
+//        - OUTPUT:
+//        main is executing
+//        Retry 0...
+//        Retry 1...
+//        executing my custom action here...ForkJoinPool.commonPool-worker-1...
+//        Exception: java.lang.IllegalArgumentException: Age can not be negative
+//        Index: 0...
+//        executing my custom action here...ForkJoinPool.commonPool-worker-1...
+//        Exception: java.lang.IllegalArgumentException: Age can not be negative
+//        Index: 1...
+//        Finished
 
-//        executing my custom actexecuting my custom action here...ForkJoinPool.commonPool-worker-1...
+//        ======== Test Case 3 ========
+//        Still run 3 times
+        exception.executeActionAsyncUsingJoin();
+
+//        - OUTPUT:
+//        executing my custom action executing my custom action here...ForkJoinPool.commonPool-worker-1...
 //        executing my custom action here...ForkJoinPool.commonPool-worker-2...
 //        executing my custom action here...ForkJoinPool.commonPool-worker-2...
 //        Finished

@@ -17,6 +17,7 @@ public class ApplyAsyncWithExecutor {
         ScheduledExecutorService SCHEDULER = Executors.newScheduledThreadPool(1);
         Executor scheduler = runnable -> SCHEDULER.schedule(runnable, Duration.ofMillis(2000).toMillis(), TimeUnit.MILLISECONDS);
         System.out.println(System.currentTimeMillis());
+        // After 2s return
         CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(() -> {
                 System.out.println(Thread.currentThread().getName() + " Time: " + System.currentTimeMillis());
             return "Future";
@@ -26,6 +27,8 @@ public class ApplyAsyncWithExecutor {
 //        System.out.println(System.currentTimeMillis());
 
 //        completableFuture = completableFuture.thenApplyAsync((s) -> s.concat(" is awesome!"), scheduler);
+
+        // After 2s return
         completableFuture = completableFuture.thenApplyAsync((s) -> {
             System.out.println(Thread.currentThread().getName() + " Time: " + System.currentTimeMillis());
             return s.concat(" is awesome!");
@@ -37,3 +40,10 @@ public class ApplyAsyncWithExecutor {
         SCHEDULER.shutdown();
     }
 }
+
+//        OUTPUT:
+//        1673332541893
+//        pool-2-thread-1 Time: 1673332543905
+//        pool-2-thread-1 Time: 1673332545911
+//        Future is awesome!
+//        1673332545914

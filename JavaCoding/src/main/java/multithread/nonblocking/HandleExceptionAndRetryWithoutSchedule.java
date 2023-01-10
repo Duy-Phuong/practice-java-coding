@@ -1,14 +1,13 @@
 package multithread.nonblocking;
 
 import java.time.Duration;
-import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 // Version 2 uses the CompletableFuture without supplier. The result will work as expected, but it
 // is the foundation for the implementation of HandleExeptionAndRetryLatest
-public class HandleExeptionAndRetryWithoutSchedule {
+public class HandleExceptionAndRetryWithoutSchedule {
     private static final Duration WAIT_BETWEEN = Duration.ofMillis(2000);
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
@@ -37,7 +36,7 @@ public class HandleExeptionAndRetryWithoutSchedule {
         Retries.withRetries(attempter, t -> true, 3, WAIT_BETWEEN);
 
         // Keep in mind that we need to wait for the action to complete
-        // If you don't wait for the action to complete, the main thread will be finished and no output will be written to console.'
+        // If you don't wait for the action to complete, the main thread will be finished and no output will be written to console.
         Thread.sleep(9000);
         System.out.println("Finished");
 

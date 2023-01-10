@@ -105,7 +105,7 @@ public class TestExceptionService {
                     .exceptionally(t -> {
                         System.out.println("Exception: " + t.getMessage());
                         System.out.println("Index: " + finalI + "...");
-                        // Have to check
+                        // Add new line to check manually to stop the execution => not good
                         if (finalI == 1) {
                             return null;
                         }
