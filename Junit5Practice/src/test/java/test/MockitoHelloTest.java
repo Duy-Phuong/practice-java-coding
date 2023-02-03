@@ -41,6 +41,7 @@ public class MockitoHelloTest {
 
         Record savedRecord = service.saveRecord(record);
 
+        // Check that mockGenerator.getNext() and saveRecord only 1 time
         verify(mockGenerator, times(1)).getNext();
         verify(mockDao, times(1)).saveRecord(any(Record.class));
 
