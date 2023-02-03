@@ -34,18 +34,18 @@
         </dependency>
 
         <!--        Import MockitoExtension-->
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-junit-jupiter</artifactId>
-            <version>4.6.1</version>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.mockito</groupId>-->
+<!--            <artifactId>mockito-junit-jupiter</artifactId>-->
+<!--            <version>4.6.1</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
 
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>2.0.2-beta</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.mockito</groupId>-->
+<!--            <artifactId>mockito-all</artifactId>-->
+<!--            <version>2.0.2-beta</version>-->
+<!--        </dependency>-->
     </dependencies>
 
 </project>

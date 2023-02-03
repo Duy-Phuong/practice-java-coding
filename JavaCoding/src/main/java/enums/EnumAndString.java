@@ -29,7 +29,12 @@ public class EnumAndString{
         System.out.println(Constants.NO);
 
 //        Return Exception
-//        Constants constants = Constants.valueOf("sdf");
+//        Constants constants = Constants.valueOf("YElllS");
 //        System.out.println(constants);
+
+        Constants constants = Constants.valueOf("YES");
+        System.out.println(constants);
+
+        System.out.println(Constants.YES.toString().toLowerCase());
     }
 }

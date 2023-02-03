@@ -4,6 +4,20 @@ import com.fasterxml.jackson.databind.*;
 import java.io.*;
 public class ParseJSONNodeTest {
     public static void main(String args[]) {
+
+//        {
+//            "name": "Raja",
+//                "age": 30,
+//                "technologies": [
+//                    "Java",
+//                    "Scala",
+//                    "Python"
+//                  ],
+//            "nestedObject": {
+//            "field": "value"
+//        }
+//        }
+
         String jsonStr = "{ \"name\" : \"Raja\", \"age\" : 30," +
                 " \"technologies\" : [\"Java\", \"Scala\", \"Python\"]," +
                 " \"nestedObject\" : { \"field\" : \"value\" } }";
