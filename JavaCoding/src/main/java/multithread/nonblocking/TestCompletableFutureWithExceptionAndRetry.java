@@ -4,8 +4,6 @@ import java.time.Duration;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 
-import org.mockito.internal.verification.Only;
-
 public class TestCompletableFutureWithExceptionAndRetry {
     private static final Duration WAIT_BETWEEN = Duration.ofMillis(20);
 
