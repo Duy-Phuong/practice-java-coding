@@ -22,6 +22,10 @@ class Student
         this.address = address;
     }
 
+    public int getRollno() {
+        return rollno;
+    }
+
     // Used to print student details in main()
     public String toString()
     {

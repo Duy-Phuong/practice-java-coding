@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 //Pattern to check fields in object with generic type and return error message like:
 //[name is required, lastName is required, isSomething MUST be true]
 
-// Explanation: How to use lamda with interface => LambdaExpressionExample3
+// Explanation: How to use lambda with interface => LambdaExpressionExample3
 
 public class CheckObjectFieldsNotNullPattern {
     public static void main(String args[]) {
