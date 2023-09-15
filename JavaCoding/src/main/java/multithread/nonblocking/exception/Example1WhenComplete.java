@@ -27,3 +27,10 @@ public class Example1WhenComplete {
 
     }
 }
+
+//        -- input: 2 --
+//        no exception, got result: 8
+//        24
+//        -- input: 0 --
+//        exception occurs
+//        java.util.concurrent.CompletionException: java.lang.ArithmeticException: / by zero

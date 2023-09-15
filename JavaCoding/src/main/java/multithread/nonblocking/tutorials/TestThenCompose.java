@@ -1,4 +1,4 @@
-package multithread.nonblocking;
+package multithread.nonblocking.tutorials;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
