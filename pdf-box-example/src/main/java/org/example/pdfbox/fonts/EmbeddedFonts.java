@@ -1,4 +1,4 @@
-package org.example;
+package org.example.pdfbox.fonts;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
