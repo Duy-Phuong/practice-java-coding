@@ -1,13 +1,16 @@
-package multithread.nonblocking;
+package multithread.nonblocking.retry;
+
+import multithread.nonblocking.TestExceptionService;
 
 import java.time.Duration;
+import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 // Version 2 uses the CompletableFuture without supplier. The result will work as expected, but it
 // is the foundation for the implementation of HandleExeptionAndRetryLatest
-public class HandleExceptionAndRetryWithoutSchedule {
+public class HandleExceptionAndRetryWithoutSchedule2 {
     private static final Duration WAIT_BETWEEN = Duration.ofMillis(2000);
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
@@ -23,6 +26,7 @@ public class HandleExceptionAndRetryWithoutSchedule {
                 throw new RuntimeException(e);
             }
             System.err.println("executing my custom action here..." + Thread.currentThread().getName() + " Time: " + System.currentTimeMillis());
+//            You can uncomment this to see success case
 //            age.set(new Random().nextInt(2));
             System.out.println("Age: " + age);
             if (age.get() < 0) {
@@ -33,21 +37,13 @@ public class HandleExceptionAndRetryWithoutSchedule {
         attempter.thenRun(() -> {
             System.out.println("Then run to trigger notification: " + Thread.currentThread().getName());
         });
-        Retries.withRetries(attempter, t -> true, 3, WAIT_BETWEEN);
+        RetriesWithoutScheduled2.withRetries(attempter, t -> true, 3, WAIT_BETWEEN);
 
         // Keep in mind that we need to wait for the action to complete
         // If you don't wait for the action to complete, the main thread will be finished and no output will be written to console.
         Thread.sleep(9000);
         System.out.println("Finished");
 
-        Retries.SCHEDULER.shutdown();
-
-//        OUTPUT:
-//        executing my custom action here...ForkJoinPool.commonPool-worker-1...
-//        Attempting to retry: 1 maxAttempts 3 Thread: ForkJoinPool.commonPool-worker-1
-//        Attempting to retry: 2 maxAttempts 3 Thread: ForkJoinPool.commonPool-worker-1
-//        Attempting to retry: 3 maxAttempts 3 Thread: ForkJoinPool.commonPool-worker-1
-//        Finished retrying
-//        Finished
+        RetriesWithoutScheduled2.SCHEDULER.shutdown();
     }
 }

@@ -1,7 +1,6 @@
-package multithread.nonblocking;
+package multithread.nonblocking.retry;
 
 import java.time.Duration;
-import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -10,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class Retries {
+public class RetriesWithoutScheduled2 {
 
     public static final ScheduledExecutorService SCHEDULER = Executors.newScheduledThreadPool(1);
 
@@ -87,11 +86,11 @@ public class Retries {
 
     public static CompletableFuture<Void> getFile() {
         CompletableFuture<Void> attempter = CompletableFuture.runAsync(() -> {
-            int age = 0;
+            int age = -1;
             System.out.println("executing my custom action here..." + Thread.currentThread().getName() + " Time: " + System.currentTimeMillis());
 //            age = new Random().nextInt(2);
             System.out.println("Age: " + age);
-            if (age == 0) {
+            if (age < 0) {
                 throw new IllegalArgumentException("Age can not be negative");
             }
         });

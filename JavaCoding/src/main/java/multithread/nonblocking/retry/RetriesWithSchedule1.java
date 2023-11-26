@@ -1,7 +1,11 @@
-package multithread.nonblocking;
+package multithread.nonblocking.retry;
 
 import java.time.Duration;
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -9,7 +13,7 @@ import java.util.function.Supplier;
 /**
  * Build retry logic for a {@link java.util.concurrent.CompletableFuture}
  */
-public class RetriesWithSchedule {
+public class RetriesWithSchedule1 {
 
     /**
      * Used to manage waiting before a retry is attempted
@@ -37,7 +41,7 @@ public class RetriesWithSchedule {
         CompletableFuture<T> firstAttempt = attempter.get();
 
         return flatten(attempter.get().thenApply(CompletableFuture::completedFuture)
-                .exceptionally(throwable -> retry(attempter, 1, throwable, shouldRetry, attempts, scheduler)));
+                .exceptionally(throwable -> retry(attempter, 0, throwable, shouldRetry, attempts, scheduler)));
     }
 
     private static <T> CompletableFuture<T> retry(Supplier<CompletableFuture<T>> attempter,

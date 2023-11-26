@@ -1,4 +1,6 @@
-package multithread.nonblocking;
+package multithread.nonblocking.retry;
+
+import multithread.nonblocking.TestExceptionService;
 
 import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
@@ -6,7 +8,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.Supplier;
 
 // Original version 1 from http://github.com/
-public class HandleExceptionAndRetryWithSchedule {
+public class HandleExceptionAndRetryWithSchedule1 {
     private static final Duration WAIT_BETWEEN = Duration.ofMillis(2000);
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
@@ -24,12 +26,12 @@ public class HandleExceptionAndRetryWithSchedule {
             }
             return "operation()";
         });
-        RetriesWithSchedule.withRetries(attempter, t -> true, 3, WAIT_BETWEEN);
+        RetriesWithSchedule1.withRetries(attempter, t -> true, 3, WAIT_BETWEEN);
 
         // Keep in mind that we need to wait for the action to complete
         // If you don't wait for the action to complete, the main thread will be finished and no output will be written to console.
         Thread.sleep(9000);
         System.out.println("Finished");
-        RetriesWithSchedule.SCHEDULER.shutdown();
+        RetriesWithSchedule1.SCHEDULER.shutdown();
     }
 }
