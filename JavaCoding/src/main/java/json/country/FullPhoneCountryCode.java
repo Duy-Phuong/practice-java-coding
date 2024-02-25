@@ -1,8 +1,6 @@
 package json.country;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jdk.nashorn.internal.objects.annotations.Getter;
-import jdk.nashorn.internal.objects.annotations.Setter;
 
 import java.util.List;
 
