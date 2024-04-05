@@ -58,6 +58,24 @@ public class PatternCompileExample {
         boolean result = Arrays.asList(c, Pattern.compile("^\\/(internal\\/signature-platform\\/).*").asPredicate()).stream().anyMatch(p -> p.test(url));
         System.out.println(result);
 
+        System.out.println("================================");
+        String url1 = "/document-baskets/2434d6e5-618b-45e9-8d06-0e79b247b08d/documents";
+
+        boolean result1 =  Arrays.asList(Pattern.compile("^\\/(document-baskets).+\\/(documents)").asPredicate()).stream().anyMatch(p -> p.test(url1));
+        System.out.println(result1);
+
+        String UUID_PATTERN = "([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12})";
+        String url2 = "/2434d6e5-618b-45e9-8d06-0e79b247b08d/document-baskets/2434d6e5-618b-45e9-8d06-0e79b247b08d/documents";
+        boolean result2 =  Arrays.asList(Pattern.compile("^\\/.+\\/(document-baskets).+\\/(documents)").asPredicate()).stream().anyMatch(p -> p.test(url2));
+        System.out.println(result2);
+
+        boolean result3 =  Arrays.asList(Pattern.compile("^\\/" + UUID_PATTERN + "\\/(document-baskets)\\/" + UUID_PATTERN + "\\/(documents)").asPredicate()).stream().anyMatch(p -> p.test(url2));
+        System.out.println(result3);
+
+        System.out.println("Pattern check digit numbers");
+        String NUMBER = "^[0-9]*$";
+        System.out.println(Pattern.compile(NUMBER).asPredicate().test("ac"));
+        System.out.println(Pattern.compile(NUMBER).asPredicate().test("123"));
 
     }
 }

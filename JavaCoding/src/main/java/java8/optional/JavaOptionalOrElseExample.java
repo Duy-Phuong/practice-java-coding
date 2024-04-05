@@ -1,5 +1,10 @@
 package java8.optional;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 
@@ -26,5 +31,13 @@ public class JavaOptionalOrElseExample {
                 .orElseGet(() -> getRandomName());
 
         System.out.println(name2);
+
+//        List<String> t = Arrays.asList("name2");
+        List<String> t = Collections.emptyList();
+        Optional<String> c = t.stream().findFirst();
+        Optional<Integer> d = c.map(String::length);
+
+        System.out.println(c.isPresent());
+        System.out.println(d.isPresent());
     }
 }
